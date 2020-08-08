@@ -2,6 +2,10 @@ auth-server: http://localhost:8085/uac
 server:
   port: 8087
 
+spring:
+  main:
+    allow-bean-definition-overriding: true
+
 security:
   oauth2:
     client:

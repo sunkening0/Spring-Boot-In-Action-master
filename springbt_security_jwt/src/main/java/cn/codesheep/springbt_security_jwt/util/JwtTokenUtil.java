@@ -104,6 +104,11 @@ public class JwtTokenUtil implements Serializable {
         return !isTokenExpired(token);
     }
 
+    /**
+     * 刷新token
+     * @param token
+     * @return
+     */
     public String refreshToken(String token) {
         String refreshedToken;
         try {
@@ -116,6 +121,12 @@ public class JwtTokenUtil implements Serializable {
         return refreshedToken;
     }
 
+    /**
+     * 校验token
+     * @param token
+     * @param userDetails
+     * @return
+     */
     public Boolean validateToken(String token, UserDetails userDetails) {
         User user = (User) userDetails;
         final String username = getUsernameFromToken(token);

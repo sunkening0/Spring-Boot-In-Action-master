@@ -41,7 +41,7 @@ public class AuthServiceImpl implements AuthService {
         UsernamePasswordAuthenticationToken upToken = new UsernamePasswordAuthenticationToken( username, password );
 
         final Authentication authentication = authenticationManager.authenticate(upToken);
-        SecurityContextHolder.getContext().setAuthentication(authentication);
+        SecurityContextHolder.getContext().setAuthentication(authentication);//当SecurityContextHolder包含一个完整填充的Authentication对象，用户就是验证通过了。
 
         final UserDetails userDetails = userDetailsService.loadUserByUsername( username );
         final String token = jwtTokenUtil.generateToken(userDetails);

@@ -5,7 +5,10 @@ import java.util.List;
 
 import com.hansonwang99.springboot_es_demo.entity.Entity;
 import com.hansonwang99.springboot_es_demo.service.TestService;
+import org.elasticsearch.index.query.BoolQueryBuilder;
+import org.elasticsearch.index.query.MatchQueryBuilder;
 import org.elasticsearch.index.query.QueryBuilders;
+import org.elasticsearch.index.query.TermQueryBuilder;
 import org.elasticsearch.search.builder.SearchSourceBuilder;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -65,7 +68,17 @@ public class TestServiceImpl implements TestService {
         SearchSourceBuilder searchSourceBuilder = new SearchSourceBuilder();
         //searchSourceBuilder.query(QueryBuilders.queryStringQuery(searchContent));
         //searchSourceBuilder.field("name");
-        searchSourceBuilder.query(QueryBuilders.matchQuery("name",searchContent));
+        // bool
+        BoolQueryBuilder boolQueryBuilder = new BoolQueryBuilder();
+        //MatchQueryBuilder matchQueryBuilder = new MatchQueryBuilder("name",searchContent);
+        //boolQueryBuilder.must(matchQueryBuilder);
+        TermQueryBuilder termQueryBuilder = new TermQueryBuilder("name",searchContent);
+        boolQueryBuilder.filter(termQueryBuilder);
+
+        // query
+        searchSourceBuilder.query(boolQueryBuilder);
+
+        //searchSourceBuilder.query(QueryBuilders.matchQuery("name",searchContent));
         Search search = new Search.Builder(searchSourceBuilder.toString())
                 .addIndex(Entity.INDEX_NAME).addType(Entity.TYPE).build();
         try {

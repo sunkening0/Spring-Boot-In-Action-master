@@ -5,5 +5,5 @@ spring:
   elasticsearch:
     jest:
       uris:
-      - http://xxx.xxx.xxx.xxx:9200 # ES服务器的地址
+      - http://192.168.0.100:9200 # ES服务器的地址
       read-timeout: 5000
